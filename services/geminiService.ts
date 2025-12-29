@@ -4,8 +4,8 @@ import { WordAnalysis } from '../types';
 
 const API_KEY = process.env.API_KEY;
 
-if (!API_KEY) {
-  throw new Error("API_KEY environment variable is not set.");
+if (!API_KEY || API_KEY.startsWith('__')) {
+  throw new Error("API_KEY environment variable is not set or has not been replaced. If deploying to Netlify, ensure your API_KEY is set in site settings and the netlify.toml file is configured to run the inject-env edge function.");
 }
 
 const ai = new GoogleGenAI({ apiKey: API_KEY });
